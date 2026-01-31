@@ -1,7 +1,32 @@
-nginx
-#支持私库
-k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.0.0
-xhofe/alist:latest
-#支持指定架构
---platform=linux/arm64 xiaoyaliu/alist
+# Dify 核心服务
+langgenius/dify-api:latest
+langgenius/dify-web:latest
+langgenius/dify-worker:latest
+langgenius/dify-model:latest
+
+# 依赖服务镜像
+postgres:15-alpine
+redis:6-alpine
+qdrant/qdrant:latest
+
+# 用于 Ollama 本地模型（可选）
+ollama/ollama:latest
+
+# 用于 Milvus 向量数据库（可选）
+milvusdb/milvus:v2.4.0
+
+# Dify 核心服务（多架构适配）
+--platform=linux/amd64 langgenius/dify-api:latest
+--platform=linux/amd64 langgenius/dify-web:latest
+--platform=linux/amd64 langgenius/dify-worker:latest
+--platform=linux/amd64 langgenius/dify-model:latest
+
+# 依赖服务（多架构适配）
+--platform=linux/amd64 postgres:15-alpine
+--platform=linux/amd64 redis:6-alpine
+--platform=linux/amd64 qdrant/qdrant:latest
+
+# 可选镜像（多架构适配）
+--platform=linux/amd64 ollama/ollama:latest
+--platform=linux/amd64 milvusdb/milvus:v2.4.0
 
